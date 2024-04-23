@@ -55,7 +55,7 @@ const player = new maptalks.RoutePlayer(route, groupLayer, {
 });
 
 player.on("playing", (param) => {
-  map.setCameraPosition({
+  map.setCameraOrientation({
     position: [param.coordinate.x, param.coordinate.y, param.coordinate.z],
     pitch: getPitch(param.pitch),
     bearing: -param.bearing - 90,

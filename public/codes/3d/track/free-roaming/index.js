@@ -63,7 +63,7 @@ let cameraPosition = {
   bearing: 0
 };
 
-map.setCameraPosition(cameraPosition);
+map.setCameraOrientation(cameraPosition);
 
 const eventsMap = {
   w: moveForward,
@@ -101,7 +101,7 @@ function moveLeft(fast) {
   const newCoord = map.containerPointToCoord(newPoint);
   cameraPosition.position[0] = newCoord.x;
   cameraPosition.position[1] = newCoord.y;
-  map.setCameraPosition(cameraPosition);
+  map.setCameraOrientation(cameraPosition);
   gltfMarker.setCoordinates([newCoord.x, newCoord.y, 17.5]);
 }
 
@@ -116,7 +116,7 @@ function moveRight(fast) {
   const newCoord = map.containerPointToCoord(newPoint);
   cameraPosition.position[0] = newCoord.x;
   cameraPosition.position[1] = newCoord.y;
-  map.setCameraPosition(cameraPosition);
+  map.setCameraOrientation(cameraPosition);
   gltfMarker.setCoordinates([newCoord.x, newCoord.y, 17.5]);
 }
 
@@ -131,7 +131,7 @@ function moveForward(fast) {
   const newCoord = map.containerPointToCoord(newPoint);
   cameraPosition.position[0] = newCoord.x;
   cameraPosition.position[1] = newCoord.y;
-  map.setCameraPosition(cameraPosition);
+  map.setCameraOrientation(cameraPosition);
   gltfMarker.setCoordinates([newCoord.x, newCoord.y, 17.5]);
 }
 
@@ -146,13 +146,13 @@ function moveBack(fast) {
   const newCoord = map.containerPointToCoord(newPoint);
   cameraPosition.position[0] = newCoord.x;
   cameraPosition.position[1] = newCoord.y;
-  map.setCameraPosition(cameraPosition);
+  map.setCameraOrientation(cameraPosition);
   gltfMarker.setCoordinates([newCoord.x, newCoord.y, 17.5]);
 }
 
 function rotateLeft() {
   cameraPosition.bearing = cameraPosition.bearing - 5;
-  map.setCameraPosition(cameraPosition);
+  map.setCameraOrientation(cameraPosition);
   const symbol = gltfMarker.getSymbol();
   gltfMarker.updateSymbol({
     rotationZ: symbol.rotationZ + 5
@@ -161,7 +161,7 @@ function rotateLeft() {
 
 function rotateRight() {
   cameraPosition.bearing = cameraPosition.bearing + 5;
-  map.setCameraPosition(cameraPosition);
+  map.setCameraOrientation(cameraPosition);
   const symbol = gltfMarker.getSymbol();
   gltfMarker.updateSymbol({
     rotationZ: symbol.rotationZ - 5
@@ -170,12 +170,12 @@ function rotateRight() {
 
 function lookUp() {
   cameraPosition.pitch = cameraPosition.pitch + 1;
-  map.setCameraPosition(cameraPosition);
+  map.setCameraOrientation(cameraPosition);
 }
 
 function lookDown() {
   cameraPosition.pitch = cameraPosition.pitch - 1;
-  map.setCameraPosition(cameraPosition);
+  map.setCameraOrientation(cameraPosition);
 }
 
 document.addEventListener("keydown", (e) => {

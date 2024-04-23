@@ -121,7 +121,7 @@ player1.on("playing", (param) => {
     rotationZ: param.bearing - 90,
   });
   if (flag1) {
-    map.setCameraPosition({
+    map.setCameraOrientation({
       position: [param.coordinate.x, param.coordinate.y, param.coordinate.z],
       pitch: getPitch(param.pitch),
       bearing: -param.bearing - 90,
@@ -136,7 +136,7 @@ player2.on("playing", (param) => {
     rotationZ: param.bearing - 90,
   });
   if (flag2) {
-    map.setCameraPosition({
+    map.setCameraOrientation({
       position: [param.coordinate.x, param.coordinate.y, param.coordinate.z],
       pitch: getPitch(param.pitch),
       bearing: -param.bearing - 90,
