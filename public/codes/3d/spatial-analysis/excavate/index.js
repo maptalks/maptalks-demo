@@ -123,6 +123,7 @@ const textureMap = {
   ground: "{res}/images/ground.jpg",
   brick: "{res}/images/brick.png"
 };
+let mask = null;
 layer.once("loadtileset", (e) => {
   const extent = layer.getExtent(e.index);
   map.fitExtent(extent, 1, { animation: false });
@@ -137,6 +138,8 @@ layer.once("loadtileset", (e) => {
     [108.95865940298586, 34.220313399352875, 28.80102335256866]
   ];
   ExcavateAnalysis(currentBoundary, 0);
+  mask = new maptalks.ClipInsideMask(currentBoundary);
+  layer.setMask([mask]);
 });
 
 const vLayer = new maptalks.VectorLayer("vector", {
@@ -205,6 +208,11 @@ drawTool.on("drawend", () => {
   }).addTo(vLayer);
   console.log(coordinates);
   ExcavateAnalysis(coordinates, 0, currentBottomTexture, currentSideTexture);
+  if (mask) {
+    mask.remove();
+  }
+  mask = new maptalks.ClipInsideMask(coordinates);
+  layer.setMask([mask]);
   currentBoundary = coordinates;
   coordinates = [];
 });
@@ -237,8 +245,6 @@ function ExcavateAnalysis(coordinates, height, bottomTexture, sideTexture) {
       polygonPatternFile: bottomTexture
     }
   }).addTo(polygonLayer);
-  const mask = new maptalks.ClipInsideMask(coordinates);
-  layer.setMask([mask]);
 }
 
 const gui = new mt.GUI();
