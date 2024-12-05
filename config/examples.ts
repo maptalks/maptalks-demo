@@ -2669,7 +2669,14 @@ const examples = [
               cn: "监听鼠标事件",
               en: "Listening for mouse events"
             }
-          }
+          },
+          {
+            name: "highlight-nodes",
+            title: {
+              cn: "单数据项高亮结点",
+              en: "Highlight nodes"
+            }
+          },
         ]
       },
       {
