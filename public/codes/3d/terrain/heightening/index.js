@@ -43,7 +43,7 @@ group.addTo(map);
 const terrain = {
   type: "mapbox",
   tileSize: 512,
-  spatialReference: "preset-vt-3857",
+  spatialReference: "preset-3857-512",
   urlTemplate:
     "https://{s}.tiles.mapbox.com/v4/mapbox.terrain-rgb/{z}/{x}/{y}.pngraw?access_token=pk.eyJ1IjoibWFwYm94LWdsLWpzIiwiYSI6ImNram9ybGI1ajExYjQyeGxlemppb2pwYjIifQ.LGy5UGNIsXUZdYMvfYRiAQ",
   subdomains: ["a", "b", "c", "d"],
