@@ -56,7 +56,7 @@ player.on("playing", (param) => {
   map.setCameraOrientation({
     position: coordinate,
     pitch: rotationX + 90,
-    bearing: rotationZ,
+    bearing: -rotationZ,
   });
 });
 

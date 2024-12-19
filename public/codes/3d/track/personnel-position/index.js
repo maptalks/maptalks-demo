@@ -63,14 +63,14 @@ const sceneConfig = {
 const lineLayer = new maptalks.LineStringLayer("line", { sceneConfig: { depthFunc: "always" }});
 const groupGLLayer = new maptalks.GroupGLLayer(
   "group",
-  [geo3DTileslayer, gltfLayer, lineLayer],
+  [geo3DTileslayer, lineLayer, gltfLayer],
   {
     sceneConfig,
   }
 ).addTo(map);
 
 /**start**/
-let speed = 7;
+let speed = 35;
 let route1 = [
   { coordinate: [108.958438, 34.217715, 17.5], time: 301000 },
   { coordinate: [108.958403, 34.219752, 19.2], time: 541000 },
@@ -122,8 +122,8 @@ player1.on("playing", (param) => {
   if (flag1) {
     map.setCameraOrientation({
       position: coordinate,
-      pitch: getPitch(rotationX),
-      bearing: rotationZ,
+      pitch: getPitch(rotationX + 90),
+      bearing: -rotationZ,
     });
   }
 });
@@ -135,8 +135,8 @@ player2.on("playing", (param) => {
   if (flag2) {
     map.setCameraOrientation({
       position: coordinate,
-      pitch: getPitch(rotationX),
-      bearing: rotationZ,
+      pitch: getPitch(rotationX + 90),
+      bearing: -rotationZ,
     });
   }
 });
