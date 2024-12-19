@@ -47,9 +47,8 @@ export function useTitleArea() {
       `/codes/${paths[3]}/${paths[4]}/${paths[5]}/index.html`
     );
     const htmlCode = await htmlRes.text();
-    const htmlData = `<link rel='stylesheet' href='https://maptalks.com/api/maptalks.css' />
-    <script type='text/javascript' src='https://maptalks.com/api/maptalks.min.js'></script>
-    <script type='text/javascript' src='https://maptalks.com/api/maptalks-gl-layers.js'></script>
+    const htmlData = `<link rel='stylesheet' href='https://maptalks.com/api/maptalks-gl.css' />
+    <script type='text/javascript' src='https://maptalks.com/api/maptalks-gl.js'></script>
     ${htmlCode}`;
     const cssRes = await fetch(
       `/codes/${paths[3]}/${paths[4]}/${paths[5]}/index.css`

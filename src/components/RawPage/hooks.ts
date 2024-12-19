@@ -34,9 +34,8 @@ export function useRawPage() {
       <style type='text/css'>
         ${cssCode.replaceAll("{res}", RESOURCE_PATH)}
       </style>
-      <link rel='stylesheet' href='https://maptalks.com/api/maptalks.css' />
-      <script type='text/javascript' src='https://maptalks.com/api/maptalks.min.js'></script>
-      <script type='text/javascript' src='https://maptalks.com/api/maptalks-gl-layers.js'></script>
+      <link rel='stylesheet' href='https://maptalks.com/api/maptalks-gl.css' />
+      <script type='text/javascript' src='https://maptalks.com/api/maptalks-gl.js'></script>
       <body>
         ${htmlCode}
         <script>
