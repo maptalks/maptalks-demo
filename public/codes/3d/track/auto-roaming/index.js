@@ -22,8 +22,8 @@ const layer = new maptalks.Geo3DTilesLayer("3dtiles", {
     },
   ],
 });
-
-const groupLayer = new maptalks.GroupGLLayer("group", [layer], {
+const lineLayer = new maptalks.LineStringLayer("line", { sceneConfig: { depthFunc: "always" }});
+const groupLayer = new maptalks.GroupGLLayer("group", [layer, lineLayer], {
   sceneConfig: {
     postProcess: {
       enable: true,
@@ -35,32 +35,32 @@ const groupLayer = new maptalks.GroupGLLayer("group", [layer], {
 }).addTo(map);
 
 /**start**/
-const route = {
-  path: [
-    [108.95845234680178, 34.217980484633046, 17.27992, 301000],
-    [108.95849687576288, 34.22103276057621, 24.54149, 541000],
-    [108.96044665374757, 34.22104798247361, 26.77416, 781000],
-    [108.96045157012941, 34.21797581739904, 23.76847, 901000],
-    [108.95845234680178, 34.217980484633046, 18.27992, 1021000],
-  ],
-};
-
-const player = new maptalks.RoutePlayer(route, groupLayer, {
-  showTrail: false,
-  showMarker: false,
-  lineSymbol: {
-    lineColor: "#ea6b48",
-    lineWidth: 0,
-  },
-});
-
+let speed = 50;
+let route = [
+  { coordinate: [108.95845234680178, 34.217980484633046, 17.27992], time: 301000 },
+  { coordinate: [108.95849687576288, 34.22103276057621, 24.54149], time: 541000 },
+  { coordinate: [108.96044665374757, 34.22104798247361, 26.77416], time: 781000 },
+  { coordinate: [108.96045157012941, 34.21797581739904, 23.76847], time: 901000 },
+  { coordinate: [108.95845234680178, 34.217980484633046, 18.27992], time: 1021000 }
+];
+route = maptalks.formatRouteData(route);
+const player = new maptalks.RoutePlayer(route, { speed });
 player.on("playing", (param) => {
+  const { coordinate, rotationX, rotationZ } = param;
   map.setCameraOrientation({
-    position: [param.coordinate.x, param.coordinate.y, param.coordinate.z],
-    pitch: getPitch(param.pitch),
-    bearing: -param.bearing - 90,
+    position: coordinate,
+    pitch: getPitch(rotationX + 90),
+    bearing: rotationZ,
   });
 });
+
+const line = new maptalks.LineString(player.getCoordinates(), {
+  symbol:{
+    lineColor: "#ea6b48",
+    lineWidth: 2
+  }
+});
+lineLayer.addGeometry(line);
 
 function getPitch(pitch) {
   if (pitch > 270 && pitch < 350) {
@@ -73,8 +73,6 @@ function getPitch(pitch) {
 }
 
 function play() {
-  player.setUnitTime(10);
-  player.showRoute();
   player.play();
 }
 

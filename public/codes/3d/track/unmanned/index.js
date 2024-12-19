@@ -1,6 +1,6 @@
 const map = new maptalks.Map("map", {
   center: [108.9594, 34.2193],
-  zoom: 14,
+  zoom: 13.5,
   pitch: 10,
   baseLayer: new maptalks.TileLayer("base", {
     urlTemplate: "{urlTemplate}",
@@ -10,8 +10,9 @@ const map = new maptalks.Map("map", {
 });
 
 /**start**/
+const lineLayer = new maptalks.LineStringLayer("line", { sceneConfig: { depthFunc: "always" }});
 const gltfLayer = new maptalks.GLTFLayer("gltf");
-const groupLayer = new maptalks.GroupGLLayer("group", [gltfLayer], {
+const groupLayer = new maptalks.GroupGLLayer("group", [gltfLayer, lineLayer], {
   sceneConfig: {
     postProcess: {
       enable: true,
@@ -30,50 +31,50 @@ const marker = new maptalks.GLTFMarker([108.9585062962617, 34.21792224742464, 55
   }
 }).addTo(gltfLayer);
 
-const route = {
-  path: [
-    [108.92712766113277, 34.231719296446016, 500, 301000],
-    [108.98841077270504, 34.23335141067818, 500, 541000],
-    [108.98866826477047, 34.229377512075274, 500, 781000],
-    [108.92747098388668, 34.22795821712711, 500, 901000],
-    [108.92747098388668, 34.22412600129431, 500, 1021000],
-    [108.9878099578857, 34.22483568404786, 500, 1201000],
-    [108.98763829650875, 34.22043555458956, 500, 1441000],
-    [108.92755681457515, 34.219370972610335, 500, 1681000]
-  ]
-};
+let speed = 5;
 
-const player = new maptalks.RoutePlayer(route, groupLayer, {
-  showTrail: false,
-  markerSymbol: {
-    markerOpacity: 0
-  },
-  lineSymbol: {
-    lineColor: "#ea6b48",
-    lineWidth: 2
-  }
-});
+let route = [
+  { coordinate: [108.92712766113277, 34.231719296446016, 500], time: 301000 },
+  { coordinate: [108.98841077270504, 34.23335141067818, 500], time: 541000 },
+  { coordinate: [108.98866826477047, 34.229377512075274, 500], time: 781000 },
+  { coordinate: [108.92747098388668, 34.22795821712711, 500], time: 901000 },
+  { coordinate: [108.92747098388668, 34.22412600129431, 500], time: 1021000 },
+  { coordinate: [108.9878099578857, 34.22483568404786, 500], time: 1201000 },
+  { coordinate: [108.98763829650875, 34.22043555458956, 500], time: 1441000 },
+  { coordinate: [108.92755681457515, 34.219370972610335, 500], time: 1681000 }
+];
+
+route = maptalks.formatRouteData(route);
+
+const player = new maptalks.RoutePlayer(route, groupLayer, { speed });
+
 
 let follow = false;
 
 player.on("playing", (param) => {
-  marker.setCoordinates(param.coordinate);
-  marker.updateSymbol({
-    rotationX: -param.pitch,
-    rotationZ: param.bearing - 90
-  });
+  const { coordinate, rotationZ, rotationX } = param;
+  marker.setCoordinates(coordinate);
+  marker.setRotation(rotationX, 0, rotationZ - 180);
   if (follow) {
     map.setView({
-      center: [param.coordinate.x, param.coordinate.y],
+      center: [coordinate[0], coordinate[1]],
       zoom: 16,
       pitch: 10
     });
   }
 });
 
+
+const line = new maptalks.LineString(player.getCoordinates(), {
+  symbol:{
+    lineColor: "#ea6b48",
+    lineWidth: 2
+  }
+});
+lineLayer.addGeometry(line);
+
 function play() {
-  player.setUnitTime(50);
-  player.showRoute();
+  player.setSpeed(speed);
   player.play();
 }
 
