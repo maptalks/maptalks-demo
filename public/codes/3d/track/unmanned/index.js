@@ -12,7 +12,7 @@ const map = new maptalks.Map("map", {
 /**start**/
 const lineLayer = new maptalks.LineStringLayer("line", { sceneConfig: { depthFunc: "always" }});
 const gltfLayer = new maptalks.GLTFLayer("gltf");
-const groupLayer = new maptalks.GroupGLLayer("group", [gltfLayer, lineLayer], {
+const groupLayer = new maptalks.GroupGLLayer("group", [lineLayer, gltfLayer], {
   sceneConfig: {
     postProcess: {
       enable: true,
