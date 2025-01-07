@@ -38,8 +38,6 @@ const layers = [
 
 const terrain = {
   type: "mapbox",
-  tileSize: 512,
-  spatialReference: "preset-3857-512",
   urlTemplate: `https://{s}.tiles.mapbox.com/v4/mapbox.terrain-rgb/{z}/{x}/{y}.pngraw?access_token=${token}`,
   subdomains: ["a", "b", "c", "d"]
 };

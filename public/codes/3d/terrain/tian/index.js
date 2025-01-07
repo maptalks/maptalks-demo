@@ -42,8 +42,6 @@ group.addTo(map);
 /**start**/
 const terrain = {
   type: "tianditu",
-  tileSize: 512,
-  spatialReference: "preset-vt-3857",
   urlTemplate:
     "https://t{s}.tianditu.gov.cn/mapservice/swdx?T=elv_c&tk=648e42a59f95a6b9aae1d505d52d229f&x={x}&y={y}&l={z}",
   subdomains: "01234567",
