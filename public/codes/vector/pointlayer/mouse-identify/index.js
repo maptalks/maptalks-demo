@@ -28,7 +28,7 @@ map.on("click", (e) => {
         return;
       }
       geos.forEach((g) => {
-        g.updateSymbol({
+        g.geometry.updateSymbol({
           markerFill: "#f00",
         });
       });
