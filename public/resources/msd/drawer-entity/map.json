@@ -697,6 +697,7 @@
                 "y": 31.24421593440192,
                 "z": 3
               },
+              "type": "GLTFMarker",
               "options": {
                 "symbol": {
                   "visible": true,
@@ -735,6 +736,7 @@
                 "x": 121.48606744973176,
                 "y": 31.242941668527777
               },
+              "type": "GLTFMarker",
               "options": {
                 "symbol": {
                   "visible": false,
@@ -767,6 +769,7 @@
                 "x": 121.48469565442497,
                 "y": 31.24410178619783
               },
+              "type": "GLTFMarker",
               "options": {
                 "symbol": {
                   "visible": false,
